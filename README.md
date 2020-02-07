@@ -138,11 +138,8 @@ Run your project with `yarn ios` or `yarn android`
 ## Built With
 
 * [React Native](https://facebook.github.io/react-native/) - The web framework used
-
 * [NodeJS](https://nodejs.org/en/) - Dependency Management
-
 * [yarn](https://yarnpkg.com/) - Dependency Management
-
 * [Native Base](https://nativebase.io/) - Style guide
 
 ## Authors
@@ -151,7 +148,7 @@ Run your project with `yarn ios` or `yarn android`
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License
 
 ## TODO
 
