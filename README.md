@@ -31,7 +31,6 @@ First we need to create our project.
 ```
 react-native init rnworkshop
 cd rnworkshop
-
 ```
 
 Adding Typescript
@@ -155,6 +154,3 @@ This project is licensed under the MIT License
 * Add new components.
 * Explain hooks.
 * Explain best practices with `jest`.
-* Explain how make a Release.
-* Explain Navigation.
-* Explain Style Guide.
