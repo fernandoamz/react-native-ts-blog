@@ -1,8 +1,10 @@
-import {ADD_PLACE} from '../actions/types';
+import {ADD_PLACE, REMOVE_PLACE} from '../actions/types';
 
 const initialState = {
+  name: '',
   placeName: '',
   places: [],
+  key: 0,
 };
 
 const placeReducer = (state = initialState, action: any) => {
@@ -16,6 +18,16 @@ const placeReducer = (state = initialState, action: any) => {
           key,
           value: action.payload,
         } as any),
+      };
+
+    case REMOVE_PLACE:
+      const filteredPlaces = state.places.filter(
+        (place: any) => place.key !== action.payload,
+      );
+
+      return {
+        ...state,
+        places: filteredPlaces,
       };
 
     default:
