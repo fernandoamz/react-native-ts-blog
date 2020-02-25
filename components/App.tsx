@@ -9,17 +9,22 @@ import {
 } from 'react-native';
 
 import {connect} from 'react-redux';
-import {addPlace} from '../actions/place';
+import {addPlace, removePlace} from '../actions/place';
 import ListItem from './ListItem';
 
 function App(props: any) {
   const [name, setName] = useState('');
 
-  function placeSubmitHandler() {
+  function _handlePlaceSubmit() {
     props.add(name);
+    setName('');
   }
 
-  function listOutput() {
+  function _handlePlaceRemove(key: number) {
+    props.remove(key);
+  }
+
+  function getListPlaces() {
     const list: Array<any> = props.places;
 
     if (list) {
@@ -28,7 +33,12 @@ function App(props: any) {
           style={styles.listContainer}
           data={props.places}
           keyExtractor={(index: any) => index.toString()}
-          renderItem={info => <ListItem placeName={info.item.value} />}
+          renderItem={info => (
+            <ListItem
+              placeName={info.item.value}
+              handlePlaceRemove={() => _handlePlaceRemove(info.item.key)}
+            />
+          )}
         />
       );
     }
@@ -48,12 +58,12 @@ function App(props: any) {
           }}
         />
         <TouchableOpacity
-          onPress={placeSubmitHandler}
+          onPress={_handlePlaceSubmit}
           style={styles.placeButton}>
           <Text style={styles.buttonStyles}>Add</Text>
         </TouchableOpacity>
       </View>
-      {listOutput()}
+      {getListPlaces()}
     </View>
   );
 }
@@ -112,6 +122,10 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     add: (name: any) => {
       dispatch(addPlace(name));
+    },
+
+    remove: (key: number) => {
+      dispatch(removePlace(key));
     },
   };
 };
