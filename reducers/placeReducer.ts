@@ -1,4 +1,4 @@
-import {ADD_PLACE, REMOVE_PLACE} from '../actions/types';
+import {ADD_PLACE, REMOVE_PLACE, EDIT_NAME} from '../actions/types';
 
 const initialState = {
   name: '',
@@ -28,6 +28,12 @@ const placeReducer = (state = initialState, action: any) => {
       return {
         ...state,
         places: filteredPlaces,
+      };
+
+    case EDIT_NAME:
+      return {
+        ...state,
+        places: action.payload,
       };
 
     default:

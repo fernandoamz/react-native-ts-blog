@@ -116,7 +116,54 @@ Now, we need to install libraries into `dev` dependencies, That help us to write
 yarn add --dev @types/jest @types/react @types/react-native @types/react-test-renderer
 ```
 
+Add redux and react redux
+
+```yarn add redux react-redux```
+
 Add folder `.jest/` to `.gitignore`
+
+# React Hooks
+
+Hook `useState`: 
+```const [value, setValue] = useState(initialState)```
+
+On versions less than `16.8.`, We read our state declaring it that way
+
+```
+super(props)
+this.state = { 
+  valueText: '',
+  valueNumber: 0
+}
+```
+
+Whit this code we can read the state by `this.state.valueText`
+We can update the state on this way:
+
+```this.setState({ valueText: 'Lorem Ipsum' })```
+
+Now whit React Hooks, We declare our state in this way: 
+
+```
+const [valueText, setValueText] = useState('')
+const [valueNumber, setValueNumber] = useState(0)
+const [valueArray, setValueArray] = useState([])
+```
+
+Whit this code we can read the state by `valueText` or `valueNumber` or `valueArray`
+
+We can update the state on this way:
+
+```setState(newState)```
+
+
+```
+setValueText('Lorem Ipsum')
+setValueNumber(9)
+setValueArray([1, 2, 3])
+```
+
+## Jest
 
 ```
 # Jest
@@ -126,9 +173,7 @@ Add folder `.jest/` to `.gitignore`
 
 Run testing with command: 
 
-```
-yarn jest
-```
+`yarn jest`
 
 ## Deployment
 
@@ -145,4 +190,4 @@ Run your project with `yarn ios` or `yarn android`
 
 * Add new components.
 * Explain hooks.
-* Explain best practices with `jest`.
+* Explain `jest`.
