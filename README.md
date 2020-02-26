@@ -141,14 +141,6 @@ Run your project with `yarn ios` or `yarn android`
 * [yarn](https://yarnpkg.com/) - Dependency Management
 * [Native Base](https://nativebase.io/) - Style guide
 
-## Authors
-
-* **Fernando Amezcua** - *Initial work* - [Bio](https://fernandoamz.github.io/)
-
-## License
-
-This project is licensed under the MIT License
-
 ## TODO
 
 * Add new components.
