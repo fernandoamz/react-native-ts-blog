@@ -124,6 +124,8 @@ Add folder `.jest/` to `.gitignore`
 
 # React Hooks
 
+It works only on version higher `16.8.`
+
 ### Hook `useState`
 ```const [value, setValue] = useState(initialState)```
 
@@ -247,7 +249,6 @@ Run your project with `yarn ios` or `yarn android`
 * [React Native](https://facebook.github.io/react-native/) - The web framework used
 * [NodeJS](https://nodejs.org/en/) - Dependency Management
 * [yarn](https://yarnpkg.com/) - Dependency Management
-* [Native Base](https://nativebase.io/) - Style guide
 
 ## TODO
 
