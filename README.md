@@ -194,6 +194,40 @@ If you want implement `componentDidMount` only add `[]` at end of `useEffect`
 
 You can add use effect more than once at the same file.
 
+### Hook `useContext`
+
+`const value = useContext(MyContext)`
+
+Simpler way to consume data from multiple contexts.
+This hook is used in combination with the React Context API, It allows us to get the current context value.
+
+This hook is used to pass data from one component to another without being specified to each of the component trees.
+
+Here an example:
+
+```
+import React, { useContext } from 'react'
+
+const welcomeRoute = React.createContext({ path: '/welcome' })
+const loggedUser = React.createContext(undefined)
+const isStatic = React.createContext(false)
+
+export default function App() {
+  let welcomeRoute = useContext(welcomeRoute)
+  let loggedUser = useContext(loggedUser)
+  let isStatic = useContext(isStatic)
+
+  return (
+    !isStatic &&
+    welcomeRoute.path === '/welcome' &&
+    (loggedUser
+      ? `Welcome back, ${loggedUser.name}!`
+      : 'Welcome!'
+    )
+  )
+}
+```
+
 ## Jest
 
 Add this folder into `.gitignore` file.
