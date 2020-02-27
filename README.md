@@ -124,7 +124,7 @@ Add folder `.jest/` to `.gitignore`
 
 # React Hooks
 
-Hook `useState`: 
+### Hook `useState`
 ```const [value, setValue] = useState(initialState)```
 
 On versions less than `16.8.`, We read our state declaring it that way
@@ -163,13 +163,42 @@ setValueNumber(9)
 setValueArray([1, 2, 3])
 ```
 
-## Jest
+### Hook `useEffect`
+
+`useEffect(didUptate)`
+
+This hook works like a combination between `componentDidMount` and `componentDidUpdate`.
+
+Into `useEffect` You can add Mutations, subscriptions, timers, logging, fetch and others. 
+
+Here an example: 
 
 ```
-# Jest
-#
-.jest/
+useEffect(() => {
+  // This is called after every render, by default
+  console.log('render!');
+
+  // If you want to implement componentWillUnmount
+  return () => console.log('unmounting...');
+})
 ```
+
+If you want implement `componentDidMount` only add `[]` at end of `useEffect`
+
+```
+ useEffect(() => {
+  // This is called after every render, by default
+  console.log('render!');
+}, [])
+```
+
+You can add use effect more than once at the same file.
+
+## Jest
+
+Add this folder into `.gitignore` file.
+
+`.jest/`
 
 Run testing with command: 
 
