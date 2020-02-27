@@ -125,6 +125,73 @@ Add folder `.jest/` to `.gitignore`
 # React Hooks
 
 It works only on version higher `16.8.`
+React Hooks is the newest of ReactJS. We can make `.tsx` or `.jsx` files cleaner and reusable logic with more possibilities.
+
+React hooks allows us to take a Reactjs functional component and add state and lifecycle methods to it.
+
+React Hooks are special functions to extends the capabilities of functional components and give them the possibility to have lifecycle events and manage state. 
+
+We are goning to compare the differencies between use react hooks and does not use them. 
+
+Whitout use React Hooks: 
+
+```
+import React, { Component } from 'react';
+
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0 // Initial value
+    };
+
+    this.handleCounter = this.handleCounter.bind(this);
+  }
+
+  handleCounter(numb) {
+    this.setState({
+      count: numb
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <p>You clicked {count} times</p>
+        <button onClick={() => this.handleCounter(this.state.count + 1)}>
+          Click me
+        </button>
+      </div>
+    );
+  }
+}
+
+export default Counter
+```
+
+Now, With React Hooks: 
+
+```
+import React, { useState } from 'react';
+
+function Counter() {
+ 
+  const [count, setCount] = useState(0); // Here we are using useState Hook
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+
+export default Counter
+```
+
+As can you see, our component is cleaner whit react hooks.
 
 ### Hook `useState`
 ```const [value, setValue] = useState(initialState)```
