@@ -311,6 +311,80 @@ export default function App() {
 }
 ```
 
+### Building our own hook
+
+We have our component with the classic counter example: 
+
+```
+import React, { useState } from "react"
+import { View, Button, Text } from "react-native"
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  function Increment() {
+    setCount(count + 1);
+  }
+
+  function Decrement() {
+    setCount(count - 1);
+  }
+
+  return (
+    <View>
+      <Text>{count}</Text>
+      <Button title="Increment" onPress={Increment} />
+      <Button title="Decrement" onPress={Decrement} />
+    </View>
+  );
+}
+
+export default App
+```
+First, We need to create a new file `MyOwnHook.ts`. Into new file we can separate the logic by the way. 
+
+```
+import { useState } from "react";
+
+function useCounter(value: number, nextValue: number) {
+  const [count, setCount] = useState(value)
+
+  function Increment() {
+    setCount(count + nextValue: number)
+  }
+
+  function Decrement() {
+    setCount(count - nextValue: number)
+  }
+
+  return [count, Increment, Decrement]
+}
+
+export default useCounter;
+```
+Now, our component can take the state value and functions on this way:
+
+```
+import React from "react";
+import useCounter from "./MyOwnHook";
+
+function App() {
+  const [count, Increment, Decrement] = useCounter(0, 1);
+
+  return (
+    <div className="App">
+        <h1>{count}</h1>
+        <button onClick={Increment}>Increment</button>
+        <button onClick={Decrement}>Decrement</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+As can you see, on this example we can see that our code can read claritier and If wee need create complex functions we can keep separate into other file.
+
 ## Jest
 
 Add this folder into `.gitignore` file.
