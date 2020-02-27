@@ -125,13 +125,13 @@ Add folder `.jest/` to `.gitignore`
 # React Hooks
 
 It works only on version higher `16.8.`
-React Hooks is the newest of ReactJS. We can make `.tsx` or `.jsx` files cleaner and reusable logic with more possibilities.
+React Hooks is the newest of ReactJS. We can create `.tsx` or `.jsx` files cleaner and reusable logic with more possibilities.
 
-React hooks allows us to take a Reactjs functional component and add state and lifecycle methods to it.
+I can say that React Hooks have helped me. Because, We have more posibilities for create cleaner reactjs code. The tedius way to write `this.state` is finished with react hooks. on new files you can make separate files to logic and view. Redux is not necesary to install on this new version (We have our own methods to create our global state). 
 
-React Hooks are special functions to extends the capabilities of functional components and give them the possibility to have lifecycle events and manage state. 
+React hooks allow us to take a functional component, manage state and it has many lifecycle methods.
 
-We are goning to compare the differencies between use react hooks and does not use them. 
+The differencies between use react hooks and does not use them. 
 
 Whitout use React Hooks: 
 
@@ -191,7 +191,23 @@ function Counter() {
 export default Counter
 ```
 
-As can you see, our component is cleaner whit react hooks.
+As can you see, our component is cleaner and smaller whit react hooks.
+
+The basic React Hooks: 
+- useState
+- useEffect
+- useContext
+
+More Hooks:
+- useReducer
+- useCallback
+- useMemo
+- useRef
+- useImperativeHandle
+- useLayoutEffect
+- useDebugValue
+
+We can create our own Hooks. If we need to customize our hooks, it is simple. This allows us create reusable logic. Forward, We will see an example about how create our own hooks and you will see the benefits.
 
 ### Hook `useState`
 ```const [value, setValue] = useState(initialState)```
@@ -267,10 +283,7 @@ You can add use effect more than once at the same file.
 
 `const value = useContext(MyContext)`
 
-Simpler way to consume data from multiple contexts.
-This hook is used in combination with the React Context API, It allows us to get the current context value.
-
-This hook is used to pass data from one component to another without being specified to each of the component trees.
+The React Context API allows you to easily access data on different levels of the component tree, without having to pass data down through props.
 
 Here an example:
 
