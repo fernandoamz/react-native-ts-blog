@@ -127,7 +127,7 @@ Add folder `.jest/` to `.gitignore`
 It works only on version higher `16.8.`
 React Hooks is the newest of ReactJS. We can create `.tsx` or `.jsx` files cleaner and reusable logic with more possibilities.
 
-I can say that React Hooks have helped me. Because, We have more posibilities for create cleaner reactjs code. The tedius way to write `this.state` is finished with react hooks. on new files you can make separate files to logic and view. Redux is not necesary to install on this new version (We have our own methods to create our global state). 
+I can say that React Hooks have helped me. Because, We have more posibilities for create cleaner reactjs code. The tedius way to write `this.state` is finished with react hooks. on new files you can make separate files to logic and view. 
 
 React hooks allow us to take a functional component, manage state and it has many lifecycle methods.
 
@@ -240,7 +240,8 @@ Whit this code we can read the state by `valueText` or `valueNumber` or `valueAr
 We can update the state on this way:
 
 ```setState(newState)```
-
+ 
+For example:
 
 ```
 setValueText('Lorem Ipsum')
