@@ -74,16 +74,18 @@ module.exports = {
 
 Rename the generated `App.js` and `__tests_/App.js` files to `App.tsx`. `index.js` needs to use the `.js` extension. All new files should use the `.tsx` extension (or `.ts` if the file doesn't contain any JSX).
 
-### Installing Redux
+## Install Redux
 Add redux and react redux
 
 ```yarn add redux react-redux```
 
-Create a new file `store.ts`:
+We are going to do a TODO example:
+
+First, Create a new file `store.ts`:
 
 ```
 // create store and combine reducers are the modules
-//  that we need to create the global store
+// that we need to create the global store
 
 import { createStore, combineReducers } from 'redux';
 
@@ -105,7 +107,7 @@ const configureStore = () => {
 
 export default configureStore;
 ```
-We create a new folder for our actions we are going to create `actions` into the file, we are going to exaport all our constants with the actions that we will need.
+We create a new folder for our actions we are going to create `actions` into the file, we are going to export all our constants with the actions that we will need.
 
 ```
 // actions/types.ts
@@ -114,10 +116,10 @@ export const REMOVE_PLACE = 'REMOVE_PLACE';
 export const EDIT_NAME = 'EDIT_NAME';
 ```
 
-create a file with the name of the actions that we are going to execute on this case I will add a file called places into actions folder: 
+Create a file with the name of the actions that we are going to execute on this case I will add a file called places into actions folder: 
 
 ```
-import {ADD_PLACE, REMOVE_PLACE, EDIT_NAME} from './types';
+import { ADD_PLACE, REMOVE_PLACE, EDIT_NAME } from './types';
 
 export const addPlace = (placeName: string) => {
   return {
@@ -144,7 +146,7 @@ export const nameTextBox = (name: string) => {
 Now, we create a new folder called reducers into this folder we are going to add a reduce with the name of the element or data that will affect with the prefix `reducer`: 
 
 ```
-import {ADD_PLACE, REMOVE_PLACE, EDIT_NAME} from '../actions/types';
+import { ADD_PLACE, REMOVE_PLACE, EDIT_NAME } from '../actions/types';
 
 const initialState = {
   name: '',
@@ -202,7 +204,7 @@ import {
   FlatList,
 } from 'react-native';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { addPlace, removePlace}  from '../actions/place';
 import ListItem from './ListItem';
 
@@ -411,7 +413,7 @@ setValueNumber(9)
 setValueArray([1, 2, 3])
 ```
 
-### Hook `useEffect`
+## Hook `useEffect`
 
 `useEffect(didUptate)`
 
@@ -440,9 +442,9 @@ If you want implement `componentDidMount` only add `[]` at end of `useEffect`
 }, [])
 ```
 
-You can add use effect more than once at the same file.
+You can add useEffect more than once at the same file.
 
-### Hook `useContext`
+## Hook `useContext`
 
 `const value = useContext(MyContext)`
 
@@ -471,15 +473,15 @@ function Post() {
  const theme = useContext(ThemeContext);
 
   return (
-        <div className={theme}>
-          {console.log(theme)}
-            <h1>My posts</h1>
-        </div>
+    <div className={theme}>
+      {console.log(theme)}
+        <h1>My posts</h1>
+    </div>
   );
 }
 ```
 
-### Building your own hook
+## Building your own hook
 
 We have our component with the classic counter example: 
 
@@ -600,10 +602,10 @@ Add this folder into `.gitignore` file.
 
 Here an example to run jest with redux: 
 
-- The most common is create file with the exactly with the name of the component that you wish test with prefix `test`. So, on this example we need to create a new file into folder `__test__` called `App-test.tsx`.
+As good practice is create a file with the exactly name of the component that you wish test with prefix `test`. So, on this example we need to create a new file into folder `__test__` called `App-test.tsx`.
 
 ```
-// App-test.tsx
+// __test__/App-test.tsx
 
 import 'react-native';
 import React from 'react';
@@ -624,11 +626,9 @@ it('renders correctly', () => {
 });
 ```
 
-Run testing with command:
+Run testing with command: `yarn jest`
 
-Add `.jest/` file to `.gitignore`
-
-`yarn jest`
+Add `.jest/` file to `.gitignore` before to make push into repository.
 
 ## Running on emulator
 
@@ -641,9 +641,10 @@ Run your project with `yarn ios` or `yarn android`
 * [yarn](https://yarnpkg.com/) - Dependency Management
 * [Redux](https://redux.js.org/) - Global Store
 
-### Bibliography
+## Bibliography
 
 - https://reactjs.org/docs/hooks-intro.html
 - https://www.deadcoderising.com/react-16-3-how-to-pass-data-around-using-reacts-new-context-api/
 - https://jestjs.io/docs/en/configuration
 - https://redux.js.org/
+- https://www.typescriptlang.org/
