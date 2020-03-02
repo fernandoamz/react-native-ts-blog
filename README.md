@@ -286,32 +286,38 @@ You can add use effect more than once at the same file.
 
 The React Context API allows you to easily access data on different levels of the component tree, without having to pass data down through props.
 
+Context is principally used when some data has to be accessible by many components at different levels of nesting. Apply it sparingly because it makes component reuse more difficult.
+
 Here an example:
 
 ```
-import React, { useContext } from 'react'
+import React, { useContext } from "react";
 
-const welcomeRoute = React.createContext({ path: '/welcome' })
-const loggedUser = React.createContext(undefined)
-const isStatic = React.createContext(false)
+const ThemeContext = React.createContext(null);
 
-export default function App() {
-  let welcomeRoute = useContext(welcomeRoute)
-  let loggedUser = useContext(loggedUser)
-  let isStatic = useContext(isStatic)
+function App() {
+  return (
+    <div>
+      <ThemeContext.Provider value="dark">
+        <Post />
+      </ThemeContext.Provider>
+    </div>
+  );
+}
+
+function Post() {
+ const theme = useContext(ThemeContext);
 
   return (
-    !isStatic &&
-    welcomeRoute.path === '/welcome' &&
-    (loggedUser
-      ? `Welcome back, ${loggedUser.name}!`
-      : 'Welcome!'
-    )
-  )
+        <div className={theme}>
+          {console.log(theme)}
+            <h1>My posts</h1>
+        </div>
+  );
 }
 ```
 
-### Building our own hook
+### Building your own hook
 
 We have our component with the classic counter example: 
 
@@ -383,7 +389,7 @@ function App() {
 export default App;
 ```
 
-As can you see, on this example we can see that our code can read claritier and If wee need create complex functions we can keep separate into other file.
+As can you see, on this example we can see that our code can read claritier and If we need create complex functions we can keep separate into other file.
 
 ## Jest
 
@@ -391,11 +397,37 @@ Add this folder into `.gitignore` file.
 
 `.jest/`
 
+Here an example to run jest with redux: 
+
+- The most common is create file with the exactly with the name of the component that you wish test with prefix `test`. So, on this example we need to create a new file into folder `__test__` called `App-test.tsx`.
+
+```
+// App-test.tsx
+
+import 'react-native';
+import React from 'react';
+import App from '../components/App';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import placeReducer from '../reducers/placeReducer';
+
+import renderer from 'react-test-renderer';
+const store = createStore(placeReducer);
+
+it('renders correctly', () => {
+  renderer.create(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+  );
+});
+```
+
 Run testing with command: 
 
 `yarn jest`
 
-## Deployment
+## Running on emulator
 
 Run your project with `yarn ios` or `yarn android`
 
@@ -404,9 +436,11 @@ Run your project with `yarn ios` or `yarn android`
 * [React Native](https://facebook.github.io/react-native/) - The web framework used
 * [NodeJS](https://nodejs.org/en/) - Dependency Management
 * [yarn](https://yarnpkg.com/) - Dependency Management
+* [Redux](https://redux.js.org/) - Global Store
 
-## TODO
+### Bibliography
 
-* Add new components.
-* Explain hooks.
-* Explain `jest`.
+- https://reactjs.org/docs/hooks-intro.html
+- https://www.deadcoderising.com/react-16-3-how-to-pass-data-around-using-reacts-new-context-api/
+- https://jestjs.io/docs/en/configuration
+- https://redux.js.org/
