@@ -74,53 +74,215 @@ module.exports = {
 
 Rename the generated `App.js` and `__tests_/App.js` files to `App.tsx`. `index.js` needs to use the `.js` extension. All new files should use the `.tsx` extension (or `.ts` if the file doesn't contain any JSX).
 
-
-## Running the tests
-
-React Native ships with `Jest`, so for testing a React Native app with TypeScript, we'll want to add `ts-jest` to our devDependencies.
-
-```
-yarn add --dev ts-jest
-```
-
-Then, we'll open up our package.json and replace the jest field with the following:
-
-```
-{
-  "jest": {
-    "preset": "react-native",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
-      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "testPathIgnorePatterns": [
-      "\\.snap$",
-      "<rootDir>/node_modules/"
-    ],
-    "cacheDirectory": ".jest/cache"
-  }
-}
-```
-
-This will configure Jest to run `.ts` and `.tsx` files with `ts-jest`.
-
-Now, we need to install libraries into `dev` dependencies, That help us to write TypeScript Code. 
-
-```
-yarn add --dev @types/jest @types/react @types/react-native @types/react-test-renderer
-```
-
+### Installing Redux
 Add redux and react redux
 
 ```yarn add redux react-redux```
 
-Add folder `.jest/` to `.gitignore`
+Create a new file `store.ts`:
+
+```
+// create store and combine reducers are the modules
+//  that we need to create the global store
+
+import { createStore, combineReducers } from 'redux';
+
+// wee need import our reducers we are going to review
+// with more details forward
+
+import placeReducer from './reducers/placeReducer';
+
+// We are going to add a reducer and recall with an alias
+
+const rootReducer = combineReducers({
+  places: placeReducer,
+});
+
+// This helper will create the store
+const configureStore = () => {
+  return createStore(rootReducer);
+};
+
+export default configureStore;
+```
+We create a new folder for our actions we are going to create `actions` into the file, we are going to exaport all our constants with the actions that we will need.
+
+```
+// actions/types.ts
+export const ADD_PLACE = 'ADD_PLACE';
+export const REMOVE_PLACE = 'REMOVE_PLACE';
+export const EDIT_NAME = 'EDIT_NAME';
+```
+
+create a file with the name of the actions that we are going to execute on this case I will add a file called places into actions folder: 
+
+```
+import {ADD_PLACE, REMOVE_PLACE, EDIT_NAME} from './types';
+
+export const addPlace = (placeName: string) => {
+  return {
+    type: ADD_PLACE,
+    payload: placeName,
+  };
+};
+
+export const removePlace = (key: number) => {
+  return {
+    type: REMOVE_PLACE,
+    payload: key,
+  };
+};
+
+export const nameTextBox = (name: string) => {
+  return {
+    type: EDIT_NAME,
+    payload: name,
+  };
+};
+```
+
+Now, we create a new folder called reducers into this folder we are going to add a reduce with the name of the element or data that will affect with the prefix `reducer`: 
+
+```
+import {ADD_PLACE, REMOVE_PLACE, EDIT_NAME} from '../actions/types';
+
+const initialState = {
+  name: '',
+  placeName: '',
+  places: [],
+  key: 0,
+};
+
+const placeReducer = (state = initialState, action: any) => {
+  const key: number = Math.random();
+
+  switch (action.type) {
+    case ADD_PLACE:
+      return {
+        ...state,
+        places: state.places.concat({
+          key,
+          value: action.payload,
+        } as any),
+      };
+
+    case REMOVE_PLACE:
+      const filteredPlaces = state.places.filter(
+        (place: any) => place.key !== action.payload,
+      );
+
+      return {
+        ...state,
+        places: filteredPlaces,
+      };
+
+    case EDIT_NAME:
+      return {
+        ...state,
+        places: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export default placeReducer;
+```
+
+We need to configure the `App.tsx`
+
+```
+import React, { useState } from 'react';
+import {
+  View,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
+
+import {connect} from 'react-redux';
+import { addPlace, removePlace}  from '../actions/place';
+import ListItem from './ListItem';
+
+function App(props: any) {
+  const [name, setName] = useState('');
+
+  function _handlePlaceSubmit() {
+    props.add(name);
+    setName('');
+  }
+
+  function _handlePlaceRemove(key: number) {
+    props.remove(key);
+  }
+
+  function getListPlaces() {
+    const list: Array<any> = props.places;
+
+    if (list) {
+      return (
+        <FlatList
+          data={props.places}
+          keyExtractor={(index: any) => index.toString()}
+          renderItem={info => (
+            <ListItem
+              placeName={info.item.value}
+              handlePlaceRemove={() => _handlePlaceRemove(info.item.key)}
+            />
+          )}
+        />
+      );
+    }
+
+    return <Text>{'Empty list ...'}</Text>;
+  }
+
+  return (
+    <View>
+      <View>
+        <TextInput
+          placeholder="Type ..."
+          value={name}
+          onChangeText={text => {
+            setName(text);
+          }}
+        />
+        <TouchableOpacity
+          onPress={_handlePlaceSubmit}
+          <Text>Add</Text>
+        </TouchableOpacity>
+      </View>
+      {getListPlaces()}
+    </View>
+  );
+}
+
+const mapStateProps = (state: any) => {
+  return {
+    places: state.places.places,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    add: (name: any) => {
+      dispatch(addPlace(name));
+    },
+
+    remove: (key: number) => {
+      dispatch(removePlace(key));
+    },
+  };
+};
+
+export default connect(
+  mapStateProps,
+  mapDispatchToProps,
+)(App);
+
+```
 
 # React Hooks
 
@@ -391,7 +553,46 @@ export default App;
 
 As can you see, on this example we can see that our code can read claritier and If we need create complex functions we can keep separate into other file.
 
-## Jest
+## Jest - Running the testing
+
+React Native ships with `Jest`, so for testing a React Native app with TypeScript, we'll want to add `ts-jest` to our devDependencies.
+
+```
+yarn add --dev ts-jest
+```
+
+Then, we'll open up our package.json and replace the jest field with the following:
+
+```
+{
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testPathIgnorePatterns": [
+      "\\.snap$",
+      "<rootDir>/node_modules/"
+    ],
+    "cacheDirectory": ".jest/cache"
+  }
+}
+```
+
+This will configure Jest to run `.ts` and `.tsx` files with `ts-jest`.
+
+Now, we need to install libraries into `dev` dependencies, That help us to write TypeScript Code. 
+
+```
+yarn add --dev @types/jest @types/react @types/react-native @types/react-test-renderer
+```
 
 Add this folder into `.gitignore` file.
 
@@ -423,7 +624,9 @@ it('renders correctly', () => {
 });
 ```
 
-Run testing with command: 
+Run testing with command:
+
+Add `.jest/` file to `.gitignore`
 
 `yarn jest`
 
