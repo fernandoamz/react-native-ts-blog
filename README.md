@@ -1,4 +1,4 @@
-# React Native TypeScript Workshop :rocket:
+# React Native TypeScript Blog :rocket:
 
 This is a workshop about react native. how use hooks with typescript and integrate testing.
 
@@ -89,8 +89,7 @@ First, Create a new file `store.ts`:
 
 import { createStore, combineReducers } from 'redux';
 
-// wee need import our reducers we are going to review
-// with more details forward
+// wee need import our reducers, we are going to review with more details forward
 
 import placeReducer from './reducers/placeReducer';
 
@@ -261,12 +260,14 @@ function App(props: any) {
   );
 }
 
+// This function works to return us the global store with the latest changes.
 const mapStateProps = (state: any) => {
   return {
     places: state.places.places,
   };
 };
 
+// Here, we call the dispatch. we can modify the global state.
 const mapDispatchToProps = (dispatch: any) => {
   return {
     add: (name: any) => {
@@ -279,12 +280,13 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
+// We connect our component with the global state with the connect function on react-redux
 export default connect(
   mapStateProps,
   mapDispatchToProps,
 )(App);
 
-```
+``` 
 
 # React Hooks
 
@@ -312,9 +314,9 @@ class Counter extends Component {
     this.handleCounter = this.handleCounter.bind(this);
   }
 
-  handleCounter(numb) {
+  handleCounter(counter) {
     this.setState({
-      count: numb
+      count: counter
     })
   }
 
@@ -355,7 +357,7 @@ function Counter() {
 export default Counter
 ```
 
-As can you see, our component is cleaner and smaller whit react hooks.
+As can you see, our component is cleaner and smaller whit react hook. On this blog only we will see the basic React Hooks.
 
 The basic React Hooks: 
 - useState
