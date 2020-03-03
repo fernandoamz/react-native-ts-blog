@@ -1,6 +1,6 @@
 # React Native TypeScript Blog :rocket:
 
-This is a workshop about react native. how use hooks with typescript and integrate testing.
+This is a blog about react native. how use hooks with typescript and integrate testing.
 
 ## Getting Started
 What is TypeScript ? The official documentation says: 
@@ -118,6 +118,8 @@ export const EDIT_NAME = 'EDIT_NAME';
 Create a file with the name of the actions that we are going to execute on this case I will add a file called places into actions folder: 
 
 ```
+// actions/place.ts
+
 import { ADD_PLACE, REMOVE_PLACE, EDIT_NAME } from './types';
 
 export const addPlace = (placeName: string) => {
@@ -147,6 +149,7 @@ Now, we create a new folder called reducers into this folder we are going to add
 ```
 import { ADD_PLACE, REMOVE_PLACE, EDIT_NAME } from '../actions/types';
 
+// This is our  global state, Here we define the Structure of our state.
 const initialState = {
   name: '',
   placeName: '',
@@ -154,6 +157,7 @@ const initialState = {
   key: 0,
 };
 
+// The reducer specify how the state will change.
 const placeReducer = (state = initialState, action: any) => {
   const key: number = Math.random();
 
@@ -357,7 +361,7 @@ function Counter() {
 export default Counter
 ```
 
-As can you see, our component is cleaner and smaller whit react hook. On this blog only we will see the basic React Hooks.
+As can you see, our component is better to read whit react hook. On this blog only we will see the basic React Hooks.
 
 The basic React Hooks: 
 - useState
@@ -457,30 +461,71 @@ Context is principally used when some data has to be accessible by many componen
 Here an example:
 
 ```
-import React, { useContext } from "react";
+import React, {useContext} from 'react';
+import {StyleSheet, View} from 'react-native';
 
-const ThemeContext = React.createContext(null);
+const themes = {
+  light: {
+    foreground: '#000000',
+    background: '#eeeeee',
+  },
+  dark: {
+    foreground: '#ffffff',
+    background: '#222222',
+  },
+};
+
+const ThemeContext = React.createContext(themes.light);
 
 function App() {
   return (
-    <div>
-      <ThemeContext.Provider value="dark">
-        <Post />
-      </ThemeContext.Provider>
-    </div>
+    <ThemeContext.Provider value={themes.dark}>
+      <Toolbar />
+    </ThemeContext.Provider>
   );
 }
 
-function Post() {
- const theme = useContext(ThemeContext);
+function Toolbar() {
+  return (
+    <View>
+      <ThemedButton />
+    </View>
+  );
+}
+
+function ThemedButton() {
+  const theme = useContext(ThemeContext);
 
   return (
-    <div className={theme}>
-      {console.log(theme)}
-        <h1>My posts</h1>
-    </div>
+    <View style={styles.marginView}>
+      <View
+        style={Object.assign(
+          {backgroundColor: theme.background},
+          styles.viewText,
+        )}
+      />
+    </View>
   );
 }
+
+export default App;
+
+const styles = StyleSheet.create({
+  marginView: {
+    marginTop: 100,
+  },
+  textColor: {
+    color: 'blue',
+    fontWeight: 'bold',
+    marginLeft: 60,
+  },
+  viewText: {
+    height: 100,
+    width: 200,
+    marginLeft: 30,
+  },
+});
+
 ```
 
 ## Building your own hook
