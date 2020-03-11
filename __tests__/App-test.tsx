@@ -7,7 +7,7 @@ import React from 'react';
 import App from '../components/App';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
-import placeReducer from '../reducers/placeReducer';
+import placeReducer from '../reducers/counterReducer';
 
 import renderer from 'react-test-renderer';
 const store = createStore(placeReducer);

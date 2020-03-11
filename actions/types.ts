@@ -1,3 +1,2 @@
-export const ADD_PLACE = 'ADD_PLACE';
-export const REMOVE_PLACE = 'REMOVE_PLACE';
-export const EDIT_NAME = 'EDIT_NAME';
+export const INCREMENT_COUNT = 'INCREMENT_COUNT';
+export const DECREMENT_COUNT = 'DECREMENT_COUNT';

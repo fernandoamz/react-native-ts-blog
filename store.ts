@@ -1,8 +1,8 @@
 import {createStore, combineReducers} from 'redux';
-import placeReducer from './reducers/placeReducer';
+import counter from './reducers/counterReducer';
 
 const rootReducer = combineReducers({
-  places: placeReducer,
+  counter,
 });
 
 const configureStore = () => {
