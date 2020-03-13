@@ -1,65 +1,63 @@
-# React Native TypeScript Blog :rocket:
+# React Hooks, TypeScript And Redux for React Native
 
-This is a blog about react native. how use hooks with typescript and integrate testing.
+Welcome to the React Hooks, TypeScript And Redux for React Native blogpost. I will talk about how to use React Hooks with TypeScript and React Native. For this blogpost, we are going to build a counter app. This exercise consists in two buttons that increment or decrement the state of our app. We are going to implement Hooks to see the benefits of using them, and how to integrate TypeScript and Redux. Then, we are going to test with Jest.
 
-## Getting Started
-What is TypeScript ? The official documentation says: 
+### Getting started with TypeScript
+According to the documentation, TypeScript is:
 
-`JavaScript that scales.
-TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
-Any browser. Any host. Any OS. Open source.`
+JavaScript that scales. TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. Any browser. Any host. Any OS. Open source.
 
-We can create JavaScript code cleaner.
+TypeScript helps us create JavaScript code cleaner. TypeScript is an object-oriented programming language. It requires a TypeScript compiler to convert into a JavaScript file.
 
-### Prerequisites
+When I started with TypeScript, it was difficult for me to understand it. It was because I was using the dynamic typed part of JavaScript. TypeScript forces us to create data types specifics. 
 
-First we need to install `react native cli`. 
-We can install with the [Facebook's official documentation](https://facebook.github.io/react-native/docs/getting-started.html).
+TypeScript was designed by Anders Hejlsberg at Microsoft. It is both a language and a set of tools. It is a strongly typed, object oriented, compiled language. It is a superset of JavaScript compiled to JavaScript. TypeScript is JavaScript with some additional features.
 
-You need to be careful:exclamation:
+TypeScript was created to make JavaScript code development safe.
+TypeScript uses all the code found in JavaScript with other coding concepts like classes, modules, interfaces, and types. It allows developers to detect errors and debug applications easier. 
 
-Follow the instructions `React Native CLI Quickstart`. 
+### Benefits to use TypeScript:
+- It is purely object-oriented programming.
+- It can be used for client-side and server-side development equal.
+- It offers a “compiler” that can convert to JavaScript-equivalent code.
+- It has an API for DOM manipulation.
+- It has a namespace concept by defining a “Module”.
+- We can create Classes, Interfaces, Generics.
+- The compiler is used to convert to JavaScript so it can run on web pages.
+- Null checking when you are in development.
+- It can use Access modifiers.
+- It can use NameSpaces.
+- TypeScript has static type checking.
 
-:warning: If you follow the `Expo CLI Quickstart`, You can not follow this workshop:exclamation:.
+TypeScript is able to point out errors in compilation ever during development. TypeScript also supports JavaScript libraries and API documentation. In TypeScript the same code can be run on any browser, device and operating system. JavaScript code is TypeScript code. It can be converted into TypeScript just changing the extension of the file from “.js” to “.ts”.
 
-### Installing
-
-If you have installed `react-native cli`, Let's go to create our project with `TypeScript`.
-
+### Install environment
+Let's go to create our project with TypeScript.
 First we need to create our project.
 
-```
-react-native init rnworkshop
-cd rnworkshop
-```
+`react-native init rnworkshop`
+`cd rnworkshop`
 
-Adding Typescript
+### Adding Typescript
 The next step is to add TypeScript to your project. The following commands will:
 
-* add TypeScript to your project
-* add React Native TypeScript Transformer to your project
-* initialize an empty TypeScript config file, which we'll configure next
-* add an empty React Native TypeScript Transformer config file, which we'll configure next
-* adds typings for React and React Native
+Add TypeScript to your project
+```yarn add --dev typescript```
 
-```
-yarn add --dev typescript
-yarn add --dev react-native-typescript-transformer
-yarn tsc --init --pretty --jsx react
-touch rn-cli.config.js
-yarn add --dev @types/react @types/react-native
-```
+Add React Native TypeScript Transformer to your project
+```yarn add --dev react-native-typescript-transformer```
 
-The tsconfig.json file contains all the settings for the TypeScript compiler. The defaults created by the command above are mostly fine, but open the file and uncomment the following line:
+initialize an empty TypeScript config file, which we'll configure next
+```yarn tsc --init --pretty --jsx react```
 
-```
-{
-  /* Search the config file for the following line and uncomment it. */
-  // "allowSyntheticDefaultImports": true,  /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
-}
-```
+add an empty React Native TypeScript Transformer config file, which we'll configure next
+ 
+`touch rn-cli.config.js`
+`adds typings for React and React Native`
+`yarn add --dev @types/react @types/react-native`
 
-The rn-cli.config.js contains the settings for the React Native TypeScript Transformer. Open it and add the following:
+This package contains type definitions for React 
+The `rn-cli.config.js` contains the settings for the React Native TypeScript Transformer. This lines will transform the TSX files to JS files, you need open it and add the following:
 
 ```
 module.exports = {
@@ -72,119 +70,118 @@ module.exports = {
 };
 ```
 
-Rename the generated `App.js` and `__tests_/App.js` files to `App.tsx`. `index.js` needs to use the `.js` extension. All new files should use the `.tsx` extension (or `.ts` if the file doesn't contain any JSX).
+Rename the generated App.js and `__tests__/App.js ` files to App.tsx. All new files should use the .tsx extension (or .ts if the file doesn't contain any JSX code). It is the extension of TypeScript.
 
-## Install Redux
-Add redux and react redux
+# Redux
+Redux is a package that helps us create only one state into our app. The only way to change the state is through dispatch actions. 
 
-```yarn add redux react-redux```
+### How does it work?
+It works as a single store. We can access our application store through the Dispatch function. The Dispatch will call the Actions. The Actions need to be defined to call the Reducers. The Reducers will do changes into the global store.
 
-We are going to do a TODO example:
+You can use Redux according to your needs. There exist other alternatives such as Flux.
 
-First, Create a new file `store.ts`:
+### A practical example.
+The counter example app is good to understand the changes in the state. The counter example is about an initialState that will be called counter. Two functions will change the initialState through the dispatch. We will define the Actions, and then, we are going to change the file App.tsx to use Hooks. We are using Redux because only one state must exist in the app and with Redux we can do that.
+
+### Store
+One storage hold the state tree of your application. Store is not a class, it's just an object with a few methods on it.
+
+Store Methods
+- getState()
+    This method will return the current state tree from the app.
+- dispatch(action)
+    Executes an action type. This is the only way to make changes into the state.
+- subscribe(listener)
+    Adds a change listener. It will be called any time an action is dispatched.
+- replaceReducer(nextReducer)
+    Replaces the reducer currently used by the store to calculate the state.
+
+If we want to create a store, we need to create a file in the root path called `store.ts`. The store is created by two methods `createStore` and `combineReducers`. Let's create it.
 
 ```
-// create store and combine reducers are the modules
-// that we need to create the global store
-
-import { createStore, combineReducers } from 'redux';
-
-// wee need import our reducers, we are going to review with more details forward
-
-import placeReducer from './reducers/placeReducer';
-
-// We are going to add a reducer and recall with an alias
+import {createStore, combineReducers} from 'redux';
+import counter from './reducers/counterReducer';
 
 const rootReducer = combineReducers({
-  places: placeReducer,
+  counter,
 });
 
-// This helper will create the store
 const configureStore = () => {
   return createStore(rootReducer);
 };
 
 export default configureStore;
 ```
-We create a new folder for our actions we are going to create `actions` into the file, we are going to export all our constants with the actions that we will need.
+
+`createStore` holds all the state tree of your app.The only way to change this store is with Dispatch Actions.
+
+`combineReducers` is a helper function from the Redux package that will return an object with all the reducers declared into the combineReducer helper.
+
+`rootReducer` will return an object with all our Reducers. The Reducers will be explained shortly.
+
+`configureStore` will return our store with all our Reducers into it.
+
+## Actions
+Into the Actions we have functions. These functions will be called by the view through the Dispatch. We need to return these functions two parameters: the type and payload.
+
+### Type
+
+They define a file usually called `types.ts` into a folder called actions. This name is usually used by convention. You can use whatever name to define them. For the counter example we are going to need two action types `INCREMENT_COUNT` and `DECREMENT_COUNT`. We need to export these constants into a file.
 
 ```
 // actions/types.ts
-export const ADD_PLACE = 'ADD_PLACE';
-export const REMOVE_PLACE = 'REMOVE_PLACE';
-export const EDIT_NAME = 'EDIT_NAME';
+export const INCREMENT_COUNT = 'INCREMENT_COUNT';
+export const DECREMENT_COUNT = 'DECREMENT_COUNT';
 ```
 
-Create a file with the name of the actions that we are going to execute on this case I will add a file called places into actions folder: 
+Now, we need to create a new file with the name `incrementer.ts` into the same folder. In this new file we are going to declare the functions. These functions will return the `type` and `payload`.
 
 ```
-// actions/place.ts
+// actions/incrementer.ts
+import {INCREMENT_COUNT, DECREMENT_COUNT} from './types';
 
-import { ADD_PLACE, REMOVE_PLACE, EDIT_NAME } from './types';
-
-export const addPlace = (placeName: string) => {
+export const incrementCount = (counter: number) => {
   return {
-    type: ADD_PLACE,
-    payload: placeName,
+    type: INCREMENT_COUNT,
+    payload: counter,
   };
 };
 
-export const removePlace = (key: number) => {
+export const decrementCount = (counter: number) => {
   return {
-    type: REMOVE_PLACE,
-    payload: key,
-  };
-};
-
-export const nameTextBox = (name: string) => {
-  return {
-    type: EDIT_NAME,
-    payload: name,
+    type: DECREMENT_COUNT,
+    payload: counter,
   };
 };
 ```
 
-Now, we create a new folder called reducers into this folder we are going to add a reduce with the name of the element or data that will affect with the prefix `reducer`: 
+We have finished the Actions. Redux knows what `type` needs to query.
+
+### Reducers.
+It helps us specify how the state will change. They are a response to the Actions sent to the store. The actions describe what happened, they do not describe how the state will change. We are going to create the reducer for the counter example. We are going to define the changes that we need into our state.
+
+Usually, Reducers go in the folder “reducers”. The files in the Reducers use the Reducer’s name and prefix `Reducer`. For example:
 
 ```
-import { ADD_PLACE, REMOVE_PLACE, EDIT_NAME } from '../actions/types';
+// reducers/counterReducer.ts
+import { INCREMENT_COUNT, DECREMENT_COUNT } from '../actions/types';
 
-// This is our  global state, Here we define the Structure of our state.
 const initialState = {
-  name: '',
-  placeName: '',
-  places: [],
-  key: 0,
+  counter: 0,
 };
 
-// The reducer specify how the state will change.
-const placeReducer = (state = initialState, action: any) => {
-  const key: number = Math.random();
-
+const counter = (state = initialState, action: any) => {
   switch (action.type) {
-    case ADD_PLACE:
+    case INCREMENT_COUNT:
       return {
         ...state,
-        places: state.places.concat({
-          key,
-          value: action.payload,
-        } as any),
+        counter: state.counter + 1,
       };
 
-    case REMOVE_PLACE:
-      const filteredPlaces = state.places.filter(
-        (place: any) => place.key !== action.payload,
-      );
-
+    case DECREMENT_COUNT:
       return {
         ...state,
-        places: filteredPlaces,
-      };
-
-    case EDIT_NAME:
-      return {
-        ...state,
-        places: action.payload,
+        counter: state.counter - 1,
       };
 
     default:
@@ -192,128 +189,130 @@ const placeReducer = (state = initialState, action: any) => {
   }
 };
 
-export default placeReducer;
-```
-
-We need to configure the `App.tsx`
+export default counter;
 
 ```
-import React, { useState } from 'react';
-import {
-  View,
-  TextInput,
-  Text,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
+We need to import the action types we defined previously. Then, we define the initial state. This is the state for counter example.
 
-import { connect } from 'react-redux';
-import { addPlace, removePlace}  from '../actions/place';
-import ListItem from './ListItem';
-
-function App(props: any) {
-  const [name, setName] = useState('');
-
-  function _handlePlaceSubmit() {
-    props.add(name);
-    setName('');
-  }
-
-  function _handlePlaceRemove(key: number) {
-    props.remove(key);
-  }
-
-  function getListPlaces() {
-    const list: Array<any> = props.places;
-
-    if (list) {
-      return (
-        <FlatList
-          data={props.places}
-          keyExtractor={(index: any) => index.toString()}
-          renderItem={info => (
-            <ListItem
-              placeName={info.item.value}
-              handlePlaceRemove={() => _handlePlaceRemove(info.item.key)}
-            />
-          )}
-        />
-      );
-    }
-
-    return <Text>{'Empty list ...'}</Text>;
-  }
-
-  return (
-    <View>
-      <View>
-        <TextInput
-          placeholder="Type ..."
-          value={name}
-          onChangeText={text => {
-            setName(text);
-          }}
-        />
-        <TouchableOpacity
-          onPress={_handlePlaceSubmit}
-          <Text>Add</Text>
-        </TouchableOpacity>
-      </View>
-      {getListPlaces()}
-    </View>
-  );
-}
-
-// This function works to return us the global store with the latest changes.
-const mapStateProps = (state: any) => {
-  return {
-    places: state.places.places,
-  };
+```
+const initialState = {
+  counter: 0,
 };
 
-// Here, we call the dispatch. we can modify the global state.
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    add: (name: any) => {
-      dispatch(addPlace(name));
-    },
+```
+This function is the Reducer’s name. This reducer will need to get the state and the action.
 
-    remove: (key: number) => {
-      dispatch(removePlace(key));
-    },
-  };
+```
+const counter = (state = initialState, action: any) => {
+  switch (action.type) {
+    case INCREMENT_COUNT:
+      return {
+        ...state,
+        counter: state.counter + 1,
+      };
+
+    case DECREMENT_COUNT:
+      return {
+        ...state,
+        counter: state.counter - 1,
+      };
+
+    default:
+      return state;
+  }
 };
 
-// We connect our component with the global state with the connect function on react-redux
+```
+Now we need to import redux on our `App.tsx` component. We need to import the actions too. 
+
+- mapStateProps: This function returns the global store with the latest changes.
+
+- mapDispatchToProps:  Here, we can call the dispatch functions. We can modify the global state.
+
+We need to connect our component with the global state with the connect function on react-redux
+```
 export default connect(
   mapStateProps,
   mapDispatchToProps,
 )(App);
 
-``` 
+```
+Here, the complete example: 
 
-# React Hooks
+```
+import React from 'react';
+import { View, Button, Text, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { incrementCount, decrementCount } from '../actions/incrementer';
 
-It works only on version higher `16.8.`
-React Hooks is the newest of ReactJS. We can create `.tsx` or `.jsx` files cleaner and reusable logic with more possibilities.
+function App(props: any) {
+  return (
+    <View style={styles.containerView}>
+      <Text>{props.counter.counter}</Text>
+      <Button
+        title="Increment"
+        onPress={() => props.increment(props.counter.counter)}
+      />
+      <Button
+        title="Decrement"
+        onPress={() => props.decrement(props.counter.counter)}
+      />
+    </View>
+  );
+}
 
-I can say that React Hooks have helped me. Because, We have more posibilities for create cleaner reactjs code. The tedius way to write `this.state` is finished with react hooks. on new files you can make separate files to logic and view. 
+const mapStateProps = (state: any) => {
+  return {
+    counter: state.counter,
+  };
+};
 
-React hooks allow us to take a functional component, manage state and it has many lifecycle methods.
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    increment: (counter: number) => {
+      dispatch(incrementCount(counter));
+    },
 
-The differencies between use react hooks and does not use them. 
+    decrement: (counter: number) => {
+      dispatch(decrementCount(counter));
+    },
+  };
+};
 
-Whitout use React Hooks: 
+export default connect(
+  mapStateProps,
+  mapDispatchToProps,
+)(App);
+
+const styles = StyleSheet.create({
+  containerView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+```
+
+In summary, Redux is a predictable state container. It is an easy way to implement a global store. Redux is flexible, centralized and debuggable for JS apps. In this case we are using Redux with React. You can use Redux with other front end frameworks.
+ 
+TypeScript in Redux has the potential to bring type safety for Reducers, state, Action creators, and UI components. It has easy refactoring of typed code for your React Redux app. Take time to evaluate the decision to use typescript on your app.
+
+
+## React Hooks
+A React Hook is a special function that allows us to use React features. React hooks allow us to take a functional component, manage its state and lifecycle methods.
+I can say that React Hooks have helped me create cleaner React code. The tedious way to write this.state is over with React Hooks. In new files you can make separate files to logic and view.
+React Hooks work on version higher than 16.8. It is the newest of ReactJS. Without them, we have to bind all classes because the functions must be updated through the render. We have to declare our class component and get all the props into the component. We have to declare our state and update it with a special method of react `this.state.value`. Like the example below:
 
 ```
 import React, { Component } from 'react';
+import { View, Button, Text } from 'react-native'
 
 class Counter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0 // Initial value
-    };
+      count: 0 
+};
 
     this.handleCounter = this.handleCounter.bind(this);
   }
@@ -326,12 +325,11 @@ class Counter extends Component {
 
   render() {
     return (
-      <div>
-        <p>You clicked {count} times</p>
-        <button onClick={() => this.handleCounter(this.state.count + 1)}>
-          Click me
-        </button>
-      </div>
+      <View style={{ margin: 100 }}>
+        <Text>You clicked {count} times</Text>
+        <Button title=”Increment” onPress={() => this.handleCounter(this.state.count + 1)} />
+        <Button title=”Decrement” onPress={() => this.handleCounter(this.state.count - 1)} />
+      </View>
     );
   }
 }
@@ -339,31 +337,31 @@ class Counter extends Component {
 export default Counter
 ```
 
-Now, With React Hooks: 
+Now we can use the hook `useState` into React. The state is declared within our functional component. We do not have to bind our clases and the way to declare the state is using Hooks to give the values to our initial structure. We can read the values of our state easier only by declaring the state name.
+This is the equivalent code of the previous example.
 
 ```
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {View, Button, Text} from 'react-native';
 
 function Counter() {
- 
-  const [count, setCount] = useState(0); // Here we are using useState Hook
+  const [count, setCount] = useState(0);
 
   return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
-    </div>
+    <View style={{ margin: 100 }}>
+      <Text>You clicked {count} times</Text>
+      <Button title="Increment" onPress={() => setCount(count + 1)} />
+      <Button title="Decrement" onPress={() => setCount(count - 1)} />
+    </View>
   );
 }
 
-export default Counter
+export default Counter;
 ```
 
-As can you see, our component is better to read whit react hook. On this blog only we will see the basic React Hooks.
+Our state is better to read with this React Hook and the code is shorter. React Hooks allow us to create modular and extensible code. In this blog we will review the basic React Hooks.
 
-The basic React Hooks: 
+The basic React Hooks:
 - useState
 - useEffect
 - useContext
@@ -377,13 +375,14 @@ More Hooks:
 - useLayoutEffect
 - useDebugValue
 
-We can create our own Hooks. If we need to customize our hooks, it is simple. This allows us create reusable logic. Forward, We will see an example about how create our own hooks and you will see the benefits.
+We can create our own Hooks, it is simple. We will see an example about how to create our own Hooks and you will see the benefits.
+ 
+Hook useState
+The state reflects the values that you need for your render. It can be declared in every .JSX file. You can keep all data types in the state. The state always returns us the most recent changes.
 
-### Hook `useState`
-```const [value, setValue] = useState(initialState)```
+`const [value, setValue] = useState(initialState)`
 
-On versions less than `16.8.`, We read our state declaring it that way
-
+On versions previous than 16.8, we read our state declaring it that way
 ```
 super(props)
 this.state = { 
@@ -392,44 +391,77 @@ this.state = {
 }
 ```
 
-Whit this code we can read the state by `this.state.valueText`
-We can update the state on this way:
-
-```this.setState({ valueText: 'Lorem Ipsum' })```
-
-Now whit React Hooks, We declare our state in this way: 
+With this code we can read the state by this.state.valueText. We can update the state in this way:
 
 ```
-const [valueText, setValueText] = useState('')
-const [valueNumber, setValueNumber] = useState(0)
-const [valueArray, setValueArray] = useState([])
+this.setState({
+  valueText: 'Lorem Ipsum'
+})
+
 ```
+Now with React Hooks, we declare our state in this way:
+`const [valueText, setValueText] = useState('')`
+`const [valueNumber, setValueNumber] = useState(0)`
+`const [valueArray, setValueArray] = useState([])`
 
-Whit this code we can read the state by `valueText` or `valueNumber` or `valueArray`
+With this code we can read the state by valueText or valueNumber or valueArray. We can update the state on this way:
+`setState(newState)`
 
-We can update the state on this way:
-
-```setState(newState)```
- 
 For example:
 
-```
-setValueText('Lorem Ipsum')
-setValueNumber(9)
-setValueArray([1, 2, 3])
-```
+`setValueText('Lorem Ipsum')`
+`setValueNumber(9)`
+`setValueArray([1, 2, 3])`
 
-## Hook `useEffect`
+useState allows us to use state and other React features without writing a class. useState is an array with two positions. The first position saves the current state. The second position has a method to change the state’s value.
+Suppose that we want to add an automatic increment or decrement for our counter example. We need to declare a state into our functional component called automatic, first we need import the “useState” Hook:
 
+`import { useState } from “react”`
+
+If we need a Hook, first we have to import it from the React library. Now, we can declare our state. As good practice we need to name our value first in camelCase. The second position needs to be called with the prefix set plus the state’s name.
+
+`const [automaticIncrement, setAutomaticIncrement] = useState(false);`
+`const [automaticDecrement, setAutomaticDecrement] = useState(false);`
+`const [stop, setStop] = useState(true);`
+
+Our state is ready to accept changes in the values. For this example we are going to need these three variables because one will increment automatically and other will decemente automatically. Both are with the boolean value `false`. The third option is to stop the automatic function. It is `true` because in the view the value is held in zero . Those are the initial values.
+We are going to add three more buttons in the view. They change the state to  `true` when we want to use the automatic function.
+
+```
+<Button
+  title="Auto Increment"
+  onPress={() => {
+    setAutomaticIncrement(true);
+    setAutomaticDecrement(false);
+    setStop(false);
+  }}
+/>
+<Button
+  title="Auto Decrement"
+  onPress={() => {
+    setAutomaticIncrement(false);
+    setAutomaticDecrement(true);
+    setStop(false);
+  }}
+/>
+<Button
+  title="Stop"
+  onPress={() => {
+    setStop(!stop);
+  }}
+/>
+
+```
+We have prepared all to use the `useEffect` hook. This hook will allow you to change the value every time that the render is working.
+
+### Hook useEffect
 `useEffect(didUptate)`
 
-This hook works like a combination between `componentDidMount` and `componentDidUpdate`.
-
-Into `useEffect` You can add Mutations, subscriptions, timers, logging, fetch and others. 
-
-Here an example: 
+This Hook works like a combination of componentDidMount and componentDidUpdate.
+With useEffect, you can add mutations, subscriptions, timers, logging, fetch and others. To use this Hook, we need to import it from the React library, like this:
 
 ```
+import { useEffect } from ‘react’
 useEffect(() => {
   // This is called after every render, by default
   console.log('render!');
@@ -437,79 +469,198 @@ useEffect(() => {
   // If you want to implement componentWillUnmount
   return () => console.log('unmounting...');
 })
-```
 
-If you want implement `componentDidMount` only add `[]` at end of `useEffect`
-
-```
- useEffect(() => {
+If you want implement componentDidMount only add [] at end of useEffect
+useEffect(() => {
   // This is called after every render, by default
   console.log('render!');
 }, [])
-```
-
-You can add useEffect more than once at the same file.
-
-## Hook `useContext`
-
-`const value = useContext(MyContext)`
-
-The React Context API allows you to easily access data on different levels of the component tree, without having to pass data down through props.
-
-Context is principally used when some data has to be accessible by many components at different levels of nesting. Apply it sparingly because it makes component reuse more difficult.
-
-Here an example:
 
 ```
-import React, {useContext} from 'react';
-import {StyleSheet, View} from 'react-native';
+You can add useEffect more than once to the same file. For the automatic function to counter example we need to declare the useEffect into our functional component. These Hooks will work calling our dispatch and executing the reducer for increment or decrement automatically:
 
-const themes = {
-  light: {
-    foreground: '#000000',
-    background: '#eeeeee',
-  },
-  dark: {
-    foreground: '#ffffff',
-    background: '#222222',
-  },
-};
+```
+useEffect(() => {
+    if (automaticIncrement && !stop) {
+      setTimeout(() => {
+        props.increment(props.counter.counter);
+      }, 100);
+    }
+    if (automaticDecrement && !stop) {
+      setTimeout(() => {
+        props.decrement(props.counter.counter);
+      }, 100);
+    }
+});
 
-const ThemeContext = React.createContext(themes.light);
-
-function App() {
+```
+The three buttons declared previously will change the state of our component. With useEffect we are going to read the values from the state tree. We will be able to activate the increment or decrement option. We are using a setTimeout as you can see for call the dispatch action from Redux depending on the case. If we press the button `Auto increment` or `Auto decrement`, we will see the automatic function running. If we press the option stop the auto running will stop. It is a good example on how the `useEffect` works. We have the complete example below:
+ 
+```
+import React, {useEffect, useState} from 'react';
+import {View, Button, Text, StyleSheet} from 'react-native';
+import {connect} from 'react-redux';
+import {incrementCount, decrementCount} from '../actions/incrementer';
+ 
+function App(props: any) {
+  const [automaticIncrement, setAutomaticIncrement] = useState(false);
+  const [automaticDecrement, setAutomaticDecrement] = useState(false);
+  const [stop, setStop] = useState(true);
+ 
+  useEffect(() => {
+    if (automaticIncrement && !stop) {
+      setTimeout(() => {
+        props.increment(props.counter.counter);
+      }, 100);
+    }
+ 
+    if (automaticDecrement && !stop) {
+      setTimeout(() => {
+        props.decrement(props.counter.counter);
+      }, 100);
+    }
+  });
+ 
   return (
-    <ThemeContext.Provider value={themes.dark}>
-      <Toolbar />
-    </ThemeContext.Provider>
-  );
-}
-
-function Toolbar() {
-  return (
-    <View>
-      <ThemedButton />
+    <View style={styles.containerView}>
+      <Text>{props.counter.counter}</Text>
+      <Button
+        title="Increment"
+        onPress={() => props.increment(props.counter.counter)}
+      />
+      <Button
+        title="Decrement"
+        onPress={() => props.decrement(props.counter.counter)}
+      />
+      <Button
+        title="Auto Increment"
+        onPress={() => {
+          setAutomaticIncrement(true);
+          setAutomaticDecrement(false);
+          setStop(false);
+        }}
+      />
+      <Button
+        title="Auto Decrement"
+        onPress={() => {
+          setAutomaticIncrement(false);
+          setAutomaticDecrement(true);
+          setStop(false);
+        }}
+      />
+      <Button
+        title="Stop"
+        onPress={() => {
+          setStop(!stop);
+        }}
+      />
     </View>
   );
 }
+ 
+const mapStateProps = (state: any) => {
+  return {
+    counter: state.counter,
+  };
+};
+ 
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    increment: (counter: number) => {
+      dispatch(incrementCount(counter));
+    },
+ 
+    decrement: (counter: number) => {
+      dispatch(decrementCount(counter));
+    },
+  };
+};
+ 
+export default connect(
+  mapStateProps,
+  mapDispatchToProps,
+)(App);
+ 
+const styles = StyleSheet.create({
+  containerView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+```
 
-function ThemedButton() {
+## Hook useContext
+const value = useContext(MyContext)
+The React Context API allows you to easily access data on different levels of the component tree, without having to pass data down through props. Context is mainly used when some data has to be accessible by many components at different levels of nesting. Apply it sparingly because it makes component reuse more difficult.
+
+useContext helps us make our code modular. It allows us to pass properties between screens. For example, If we have a Toolbar. It needs to keep the same styles on all screens. We are going to add a toolbar example to our application. We are going to pass the styles for useContext.
+
+First, we are going to import our useContext Hook.
+`import React, { useContext } from 'react';`
+
+Then, we need to import the react native components for the styles and views.
+`import { StyleSheet, View, Text } from 'react-native';`
+
+The object theme is to save the different toolbar’s styles. For this example, we are going to save two different colors for the toolbar `light` and  `dark`.
+
+```
+const themes = {
+  light: {
+    background: '#eeeeee',
+  },
+  dark: {
+    background: '#222222',
+  },
+};
+```
+
+We need to create our context using the React Context API. This function will create a context object with all methods. The image below is an example.
+
+`const ThemeContext = React.createContext(themes.light);`
+
+The provider will pass the value for the tree. We are passing the light value from our theme object. The value only will be read to the component wrapped.
+
+```
+function ToolBar() {
+  return (
+    <ThemeContext.Provider value={themes.light}>
+      <ThemedToolbar />
+    </ThemeContext.Provider>
+  );
+}
+```
+
+We are going to create our ThemedToolbar functional object. Into this component we are going to call useContext Hook. We pass the ThemeContext declared previously. The image below is an example for the object that it will return us.
+
+ThemedToolbar is the functional component for show in the render. Now, we can use the object within the context.
+
+```
+function ThemedToolbar() {
   const theme = useContext(ThemeContext);
-
+ 
   return (
     <View style={styles.marginView}>
       <View
         style={Object.assign(
           {backgroundColor: theme.background},
           styles.viewText,
-        )}
-      />
+        )}>
+        <Text>{theme.title}</Text>
+      </View>
     </View>
   );
 }
+```
 
-export default App;
+We are using the context to pass a style to our view and the toolbar’s title. You can see it in the code above highlighted in blue.
 
+We must export our ToolBar that has the provider property. 
+`export default ToolBar;`
+
+This is the style guide used. marginView is for using a margin in our app. textColor has the color for our text into the text component. viewText is for center the content of our view.
+
+```
 const styles = StyleSheet.create({
   marginView: {
     marginTop: 100,
@@ -520,17 +671,19 @@ const styles = StyleSheet.create({
     marginLeft: 60,
   },
   viewText: {
-    height: 100,
-    width: 200,
+    width: '80%',
+    height: 40,
     marginLeft: 30,
   },
 });
 
 ```
 
-## Building your own hook
+In summary, this Hook can be used to pass values into our components. React.createContext is to wrap the object that you want to make modular. If you want to make changes to the values only you need modify this object to do it. Provider works to pass values of our context wrapped. Use this hook depending on your needs.
 
-We have our component with the classic counter example: 
+### Building your own hook
+We have our component with the classic counter example:
+This is a practical example about how to create our own hook.
 
 ```
 import React, { useState } from "react"
@@ -557,8 +710,10 @@ function App() {
 }
 
 export default App
+
 ```
-First, We need to create a new file `MyOwnHook.ts`. Into new file we can separate the logic by the way. 
+
+First, We need to create a new file called MyOwnHook.ts. Into the new file we can separate the logic by the way.
 
 ```
 import { useState } from "react";
@@ -578,10 +733,8 @@ function useCounter(value: number, nextValue: number) {
 }
 
 export default useCounter;
-```
-Now, our component can take the state value and functions on this way:
 
-```
+Now, our component can take the state value and functions on this way:
 import React from "react";
 import useCounter from "./MyOwnHook";
 
@@ -600,15 +753,24 @@ function App() {
 export default App;
 ```
 
-As can you see, on this example we can see that our code can read claritier and If we need create complex functions we can keep separate into other file.
+As you can see, in this example we can see that our code can read claritier and If we need to create complex functions we can keep them separate into other files.
+The rules of hooks
+ 
+There are principal usage rules for React Hooks. described in its documentation oficial.
+ 
+1.- Hooks must be called in the same order, at the top level.
+2.- Don’t call Hooks inside loops, conditions, or nested functions.
+3.- Only Call Hooks from React Functions.
+4.- Custom hooks should start with the word use and be camel-cased.
+ 
+There is a ESLint plugin that can help you to enforce the rules. You can add this plugin to your project. This plugin was developed by React core team.
+ 
+ `yarn add eslint-plugin-react-hooks`
+ 
+Jest - Running the testing
+React Native ships with Jest, so for testing a React Native app with TypeScript, we'll want to add ts-jest to our devDependencies.
 
-## Jest - Running the testing
-
-React Native ships with `Jest`, so for testing a React Native app with TypeScript, we'll want to add `ts-jest` to our devDependencies.
-
-```
-yarn add --dev ts-jest
-```
+`yarn add --dev ts-jest`
 
 Then, we'll open up our package.json and replace the jest field with the following:
 
@@ -633,23 +795,16 @@ Then, we'll open up our package.json and replace the jest field with the followi
     "cacheDirectory": ".jest/cache"
   }
 }
-```
-
-This will configure Jest to run `.ts` and `.tsx` files with `ts-jest`.
-
-Now, we need to install libraries into `dev` dependencies, That help us to write TypeScript Code. 
 
 ```
+This will configure Jest to run .ts and .tsx files with ts-jest.
+Now, we need to install libraries into dev dependencies, That help us to write TypeScript Code.
 yarn add --dev @types/jest @types/react @types/react-native @types/react-test-renderer
-```
 
-Add this folder into `.gitignore` file.
-
-`.jest/`
-
-Here an example to run jest with redux: 
-
-As good practice is create a file with the exactly name of the component that you wish test with prefix `test`. So, on this example we need to create a new file into folder `__test__` called `App-test.tsx`.
+Add this folder into .gitignore file.
+.jest/
+Here an example to run jest with redux:
+As good practice is create a file with the exact name of the component that you wish to test with a prefix test. So, in this example we need to create a new file into folder __test__ called App-test.tsx.
 
 ```
 // __test__/App-test.tsx
@@ -673,25 +828,24 @@ it('renders correctly', () => {
 });
 ```
 
-Run testing with command: `yarn jest`
+### Run testing with command:
+`yarn jest`
 
-Add `.jest/` file to `.gitignore` before to make push into repository.
+Add `.jest/` file to `.gitignore` before pushing into the repository.
 
-## Running on emulator
+### Running on emulator
+Run your project with command `yarn ios` or `yarn android`
 
-Run your project with `yarn ios` or `yarn android`
+### Built With
+React Native - The web framework used
+NodeJS - Dependency Management
+yarn - Dependency Management
+Redux - Global Store
 
-## Built With
+Bibliography
+https://reactjs.org/docs/hooks-intro.html
+https://www.deadcoderising.com/react-16-3-how-to-pass-data-around-using-reacts-new-context-api/
+https://jestjs.io/docs/en/configuration
+https://redux.js.org/
+https://www.typescriptlang.org/
 
-* [React Native](https://facebook.github.io/react-native/) - The web framework used
-* [NodeJS](https://nodejs.org/en/) - Dependency Management
-* [yarn](https://yarnpkg.com/) - Dependency Management
-* [Redux](https://redux.js.org/) - Global Store
-
-## Bibliography
-
-- https://reactjs.org/docs/hooks-intro.html
-- https://www.deadcoderising.com/react-16-3-how-to-pass-data-around-using-reacts-new-context-api/
-- https://jestjs.io/docs/en/configuration
-- https://redux.js.org/
-- https://www.typescriptlang.org/
