@@ -37,7 +37,7 @@ function App(props: any) {
           onPress={() => props.decrement(props.counter.counter)}
         />
         <Button
-          title="AutoIncrement"
+          title="Auto Increment"
           onPress={() => {
             setAutomaticIncrement(true);
             setAutomaticDecrement(false);
@@ -45,7 +45,7 @@ function App(props: any) {
           }}
         />
         <Button
-          title="AutoDecrement"
+          title="Auto Decrement"
           onPress={() => {
             setAutomaticIncrement(false);
             setAutomaticDecrement(true);
